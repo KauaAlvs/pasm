@@ -50,7 +50,7 @@
             filter: drop-shadow(0 0 40px rgba(37, 99, 235, 0.4));
         }
 
-        /* Ocultar Barra de Rolagem Horizontal (Hide Scrollbar) */
+        /* Ocultar Barra de Rolagem Horizontal */
         .hide-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
@@ -110,7 +110,7 @@
             animation-delay: 0.3s;
         }
 
-        /* Wizard Modal VIP */
+        /* Wizard Modal VIP OTIMIZADO PARA MOBILE */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -134,14 +134,23 @@
         .wizard-box {
             background: #0f172a;
             border: 1px solid #334155;
-            border-radius: 2rem;
-            width: 90%;
+            border-radius: 1.5rem;
+            width: 95%;
             max-width: 500px;
-            padding: 2.5rem;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 1.5rem;
             position: relative;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
             transform: scale(0.95);
             transition: transform 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .wizard-box {
+                padding: 2.5rem;
+                border-radius: 2rem;
+            }
         }
 
         .modal-overlay.active .wizard-box {
@@ -246,7 +255,8 @@
                     </button>
 
                     <button onclick="toggleMobileMenu()" class="text-white p-2 md:hidden" aria-label="Abrir Menu">
-                        <i id="menu-icon" data-lucide="menu" class="w-7 h-7"></i>
+                        <i id="icon-menu" data-lucide="menu" class="w-7 h-7 block"></i>
+                        <i id="icon-x" data-lucide="x" class="w-7 h-7 hidden"></i>
                     </button>
                 </div>
             </div>
@@ -865,21 +875,28 @@
         lucide.createIcons();
         document.getElementById('ageDisplay').innerText = new Date().getFullYear() - 2004;
 
-        /* MENU MOBILE */
+        /* MENU MOBILE (CORRIGIDO) */
         const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconX = document.getElementById('icon-x');
+
         function toggleMobileMenu() {
             mobileMenu.classList.toggle('active');
             if (mobileMenu.classList.contains('active')) {
-                menuIcon.setAttribute('data-lucide', 'x'); document.body.style.overflow = 'hidden';
+                iconMenu.classList.replace('block', 'hidden');
+                iconX.classList.replace('hidden', 'block');
+                document.body.style.overflow = 'hidden';
             } else {
-                menuIcon.setAttribute('data-lucide', 'menu'); document.body.style.overflow = '';
+                iconMenu.classList.replace('hidden', 'block');
+                iconX.classList.replace('block', 'hidden');
+                document.body.style.overflow = '';
             }
-            lucide.createIcons();
         }
         function closeMobileMenu() {
-            mobileMenu.classList.remove('active'); menuIcon.setAttribute('data-lucide', 'menu');
-            document.body.style.overflow = ''; lucide.createIcons();
+            mobileMenu.classList.remove('active');
+            iconMenu.classList.replace('hidden', 'block');
+            iconX.classList.replace('block', 'hidden');
+            document.body.style.overflow = '';
         }
         document.querySelectorAll('.mobile-link').forEach(link => { link.addEventListener('click', closeMobileMenu); });
 
@@ -907,7 +924,6 @@
             const email = document.getElementById('apiEmail').value;
             const mensagem = document.getElementById('apiMensagem').value;
 
-            // Loading state
             btn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Enviando...`;
             lucide.createIcons();
             btn.disabled = true;
