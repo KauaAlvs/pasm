@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PASM | Engenharia de Software para Líderes de Mercado</title>
+    <title>Projetos Executados | PASM Tecnologia</title>
     <meta name="description"
-        content="Sistemas modulares, automação corporativa e presença digital de alto padrão. Transformamos fluxos complexos em tecnologia intuitiva.">
+        content="Conheça os ecossistemas digitais, portais corporativos e plataformas de vendas desenvolvidos pela Engenharia da PASM.">
 
     <link rel="icon" type="image/x-icon" href="https://ik.imagekit.io/38cojzdyt/PASM/favicon.ico">
 
@@ -103,63 +103,6 @@
 
         .delay-200 {
             animation-delay: 0.2s;
-        }
-
-        /* ==============================================
-           NOVA ANIMAÇÃO DO MANIFESTO PASM
-           ============================================== */
-        .pasm-tab-btn {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            color: rgba(255, 255, 255, 0.15);
-            cursor: pointer;
-            position: relative;
-        }
-
-        .pasm-tab-btn::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: #3b82f6;
-            transition: width 0.5s ease;
-            border-radius: 5px;
-        }
-
-        .pasm-tab-btn:hover {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .pasm-tab-btn.active {
-            color: #ffffff;
-            transform: scale(1.15);
-            text-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
-        }
-
-        .pasm-tab-btn.active::after {
-            width: 100%;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
-        }
-
-        .pasm-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px) scale(0.98);
-            filter: blur(10px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .pasm-content.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
         }
 
         /* WIZARD VIP */
@@ -276,11 +219,11 @@
 
                 <div class="hidden md:flex items-center gap-8">
                     <a href="index.html"
-                        class="text-[10px] font-black uppercase tracking-widest text-white transition-colors">Início</a>
+                        class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Início</a>
                     <a href="solucoes.html"
                         class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Soluções</a>
                     <a href="projetos.html"
-                        class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Projetos</a>
+                        class="text-[10px] font-black uppercase tracking-widest text-white transition-colors">Projetos</a>
                     <a href="sobre.html"
                         class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">A
                         Empresa</a>
@@ -303,9 +246,9 @@
     <div id="mobile-menu"
         class="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-2xl flex flex-col pt-32 px-6 md:hidden">
         <div class="flex flex-col gap-8 text-center font-display">
-            <a href="index.html" class="mobile-link text-3xl font-black text-white">Início</a>
+            <a href="index.html" class="mobile-link text-3xl font-black text-slate-300 hover:text-white">Início</a>
             <a href="solucoes.html" class="mobile-link text-3xl font-black text-slate-300 hover:text-white">Soluções</a>
-            <a href="projetos.html" class="mobile-link text-3xl font-black text-slate-300 hover:text-white">Projetos</a>
+            <a href="projetos.html" class="mobile-link text-3xl font-black text-white">Projetos</a>
             <a href="sobre.html" class="mobile-link text-3xl font-black text-slate-300 hover:text-white">A Empresa</a>
 
             <div class="mt-8 flex flex-col items-center gap-6">
@@ -317,222 +260,165 @@
         </div>
     </div>
 
-    <section class="relative pt-44 pb-20 lg:pt-56 lg:pb-32 overflow-hidden z-10 text-center">
+    <header
+        class="relative pt-44 pb-20 lg:pt-56 lg:pb-32 overflow-hidden z-10 text-center border-b border-slate-800/50">
         <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full"></div>
+        </div>
+        <div class="max-w-4xl mx-auto px-6 relative z-10 animate-up">
             <div
-                class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 blur-[150px] rounded-full">
+                class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-slate-300 text-[10px] font-black uppercase tracking-widest rounded-full border border-slate-700 mb-8">
+                <i data-lucide="folder-open" class="w-3 h-3 text-blue-400"></i> Cases de Sucesso
             </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-6 relative z-10 animate-up">
-            <div class="mb-12 px-4 flex justify-center">
-                <img src="https://ik.imagekit.io/38cojzdyt/PASM/PASM%20COMPLETA.png" alt="PASM Logo"
-                    class="hero-glow w-full max-w-[280px] md:max-w-lg">
-            </div>
-            <h1
-                class="text-5xl md:text-7xl lg:text-8xl font-display font-900 text-white tracking-tighter leading-[1.05] mb-8">
-                Tecnologia que <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Impulsiona
-                    Negócios.</span>
+            <h1 class="text-5xl md:text-7xl font-display font-900 text-white tracking-tighter leading-tight mb-8">
+                Engenharia <span class="text-blue-500">Aplicada.</span>
             </h1>
-            <p class="text-lg md:text-xl text-slate-400 font-medium max-w-2xl mx-auto mb-12 leading-relaxed">
-                Do site de alta conversão ao sistema de gestão corporativa. Construímos a infraestrutura exata para
-                escalar e organizar a sua operação.
+            <p class="text-lg md:text-xl text-slate-400 font-medium leading-relaxed">
+                Nós não mostramos apenas designs bonitos. Aqui estão os ecossistemas digitais robustos que já estão no
+                ar otimizando a rotina e escalando o faturamento de empresas reais.
             </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
-                <button onclick="openWizard()"
-                    class="w-full sm:w-auto bg-blue-600 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white hover:text-slate-950 transition-all shadow-2xl shadow-blue-500/25 flex items-center justify-center gap-2 group">
-                    <i data-lucide="zap" class="w-4 h-4"></i> Iniciar Diagnóstico
-                </button>
-                <a href="solucoes.html"
-                    class="w-full sm:w-auto text-slate-300 border border-slate-700 px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs hover:bg-slate-800 hover:text-white transition-all">
-                    Explorar Soluções
-                </a>
-            </div>
         </div>
-    </section>
-
-    <section id="manifesto" class="py-24 relative z-10 bg-slate-950/50 border-y border-slate-800/50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20 animate-up">
-                <h2 class="text-[11px] font-black uppercase tracking-[0.4em] text-blue-400 mb-4">A Arquitetura</h2>
-                <h3 class="text-4xl md:text-5xl font-display font-900 tracking-tighter text-white">Muito além do código.
-                </h3>
-            </div>
-
-            <div class="max-w-5xl mx-auto">
-                <div class="flex justify-between items-center mb-12 px-4 md:px-20 border-b border-slate-800/50 pb-6">
-                    <div onclick="changeTab('P')" id="tab-P"
-                        class="pasm-tab-btn active text-5xl md:text-7xl font-display font-900">P</div>
-                    <div onclick="changeTab('A')" id="tab-A"
-                        class="pasm-tab-btn text-5xl md:text-7xl font-display font-900">A</div>
-                    <div onclick="changeTab('S')" id="tab-S"
-                        class="pasm-tab-btn text-5xl md:text-7xl font-display font-900">S</div>
-                    <div onclick="changeTab('M')" id="tab-M"
-                        class="pasm-tab-btn text-5xl md:text-7xl font-display font-900">M</div>
-                </div>
-
-                <div
-                    class="dark-glass rounded-[2rem] border border-slate-700/50 relative overflow-hidden h-[380px] md:h-[300px]">
-                    <div
-                        class="absolute -top-20 -right-20 w-64 h-64 bg-blue-600/10 blur-[80px] rounded-full pointer-events-none">
-                    </div>
-
-                    <div id="content-P" class="pasm-content active p-8 md:p-12 flex flex-col justify-center">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div
-                                class="w-12 h-12 bg-blue-900/30 rounded-xl flex items-center justify-center border border-blue-500/20 text-blue-400">
-                                <i data-lucide="target" class="w-6 h-6"></i>
-                            </div>
-                            <h4 class="text-3xl md:text-4xl font-display font-900 text-white tracking-tight">
-                                Planejamento Estratégico</h4>
-                        </div>
-                        <p class="text-slate-400 text-lg leading-relaxed">
-                            A tecnologia só tem valor se resolver um problema real. Antes de qualquer execução,
-                            mergulhamos no fluxo da sua empresa para desenhar uma solução que elimine gargalos, reduza
-                            custos e crie pontes diretas com seus clientes.
-                        </p>
-                    </div>
-
-                    <div id="content-A" class="pasm-content p-8 md:p-12 flex flex-col justify-center">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div
-                                class="w-12 h-12 bg-emerald-900/30 rounded-xl flex items-center justify-center border border-emerald-500/20 text-emerald-400">
-                                <i data-lucide="shield-check" class="w-6 h-6"></i>
-                            </div>
-                            <h4 class="text-3xl md:text-4xl font-display font-900 text-white tracking-tight">Arquitetura
-                                Segura</h4>
-                        </div>
-                        <p class="text-slate-400 text-lg leading-relaxed">
-                            Dados são o maior ativo de uma empresa. Desenvolvemos ecossistemas baseados em alta
-                            disponibilidade e proteção de ponta a ponta. Seu sistema estará sempre no ar, operando com
-                            agilidade e total conformidade.
-                        </p>
-                    </div>
-
-                    <div id="content-S" class="pasm-content p-8 md:p-12 flex flex-col justify-center">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div
-                                class="w-12 h-12 bg-purple-900/30 rounded-xl flex items-center justify-center border border-purple-500/20 text-purple-400">
-                                <i data-lucide="settings" class="w-6 h-6"></i>
-                            </div>
-                            <h4 class="text-3xl md:text-4xl font-display font-900 text-white tracking-tight">Sistemas
-                                Sob Medida</h4>
-                        </div>
-                        <p class="text-slate-400 text-lg leading-relaxed">
-                            Esqueça os softwares genéricos que obrigam sua equipe a adaptar processos. Nós construímos
-                            painéis administrativos, CRMs e intranets que se moldam perfeitamente à forma como a sua
-                            empresa já gosta de trabalhar.
-                        </p>
-                    </div>
-
-                    <div id="content-M" class="pasm-content p-8 md:p-12 flex flex-col justify-center">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div
-                                class="w-12 h-12 bg-orange-900/30 rounded-xl flex items-center justify-center border border-orange-500/20 text-orange-400">
-                                <i data-lucide="blocks" class="w-6 h-6"></i>
-                            </div>
-                            <h4 class="text-3xl md:text-4xl font-display font-900 text-white tracking-tight">Modelagem
-                                Modular</h4>
-                        </div>
-                        <p class="text-slate-400 text-lg leading-relaxed">
-                            Projetado para crescer junto com você. Construímos a infraestrutura em blocos: inicie com um
-                            portal vitrine hoje, adicione uma loja virtual depois e conecte a um sistema de RH amanhã.
-                            Sem refazer o trabalho, apenas expandindo.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </header>
 
     <section class="py-24 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 animate-up">
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-display font-900 tracking-tighter text-white mb-4">O que nós
-                        construímos.</h2>
-                    <p class="text-slate-400 text-lg max-w-xl">Ferramentas projetadas para automação, organização e
-                        captação de clientes.</p>
-                </div>
-                <a href="solucoes.html"
-                    class="flex items-center gap-2 text-blue-400 font-bold hover:text-white transition-colors group uppercase tracking-widest text-xs">
-                    Ver todas as soluções <i data-lucide="arrow-right"
-                        class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                </a>
-            </div>
+            <div
+                class="bg-slate-900 border border-slate-800 rounded-[3rem] p-8 md:p-16 relative overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-16 items-center shadow-2xl animate-up">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="dark-glass p-8 md:p-10 rounded-[2.5rem] card-hover animate-up delay-100 group cursor-pointer"
-                    onclick="window.location.href='solucoes.html'">
-                    <div
-                        class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-blue-400 mb-8 border border-slate-700 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                        <i data-lucide="database" class="w-7 h-7"></i>
-                    </div>
-                    <h4 class="text-2xl font-display font-bold tracking-tight text-white mb-3">Sistemas de Gestão (B2B)
-                    </h4>
-                    <p class="text-slate-400 leading-relaxed">Organize processos, centralize dados de clientes e elimine
-                        trabalhos manuais repetitivos.</p>
+                <div
+                    class="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-600/20 blur-[100px] rounded-full pointer-events-none">
                 </div>
-                <div class="dark-glass p-8 md:p-10 rounded-[2.5rem] card-hover animate-up delay-200 group cursor-pointer"
-                    onclick="window.location.href='solucoes.html'">
-                    <div
-                        class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 border border-slate-700 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                        <i data-lucide="layout" class="w-7 h-7"></i>
+
+                <div class="relative z-10 order-2 lg:order-1">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-blue-500 mb-4 block">Sistema Web
+                        e Portal</span>
+                    <h3 class="text-4xl md:text-5xl font-display font-900 text-white tracking-tighter mb-6">Portal
+                        Acadêmico APIT</h3>
+                    <p class="text-slate-400 text-lg leading-relaxed mb-8">
+                        Centralização total da gestão educacional B2B. Construímos um ecossistema integrado que
+                        automatizou o controle disciplinar, a gestão de notas e a frequência em tempo real, conectando
+                        professores, gestores de RH e jovens aprendizes em uma interface unificada.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-8 mb-10 border-t border-slate-800/50 pt-8 mt-8">
+                        <div>
+                            <div class="text-4xl font-display font-900 text-white tracking-tighter text-blue-400">80%
+                            </div>
+                            <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-2">Eficiência
+                                Operacional e RH</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-display font-900 text-white tracking-tighter text-blue-400">100%
+                            </div>
+                            <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-2">Uptime da
+                                Plataforma Cloud</div>
+                        </div>
                     </div>
-                    <h4 class="text-2xl font-display font-bold tracking-tight text-white mb-3">Sites e Portais de Vendas
-                    </h4>
-                    <p class="text-slate-400 leading-relaxed">Ambientes digitais extremamente rápidos, projetados com
-                        foco total na captação de novos negócios.</p>
                 </div>
+
+                <div class="relative z-10 order-1 lg:order-2">
+                    <div
+                        class="aspect-[4/3] bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden relative group">
+                        <div
+                            class="absolute inset-0 bg-[url('https://ik.imagekit.io/38cojzdyt/PASM/IMAGENS!!!!!!!!!!!!!/PORTAL%20ACADEMICO.png')] bg-cover bg-center opacity-80 group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent">
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <section class="py-24 relative z-10 bg-slate-900/30 border-y border-slate-800/50 overflow-hidden">
+    <section class="py-12 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 animate-up">
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-display font-900 tracking-tighter text-white mb-4">Projetos
-                        Executados.</h2>
-                    <p class="text-slate-400 text-lg">Um portfólio baseado em resultados práticos.</p>
+            <div
+                class="dark-glass rounded-[3rem] p-8 md:p-16 relative overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-16 items-center shadow-2xl animate-up delay-100">
+
+                <div
+                    class="absolute -top-20 -right-20 w-80 h-80 bg-emerald-600/10 blur-[100px] rounded-full pointer-events-none">
                 </div>
-                <a href="projetos.html"
-                    class="flex items-center gap-2 text-blue-400 font-bold hover:text-white transition-colors group uppercase tracking-widest text-xs">
-                    Explorar Cases Completos <i data-lucide="arrow-right"
-                        class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                </a>
+
+                <div class="relative z-10">
+                    <div
+                        class="aspect-[4/3] bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden relative group">
+                        <div
+                            class="absolute inset-0 bg-[url('https://ik.imagekit.io/38cojzdyt/PASM/IMAGENS!!!!!!!!!!!!!/painel%20de%20gestão.png')] bg-cover bg-center opacity-80 group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4 block">CRM e
+                        Gestão Administrativa</span>
+                    <h3 class="text-4xl md:text-5xl font-display font-900 text-white tracking-tighter mb-6">Ecossistema
+                        Papa Mike</h3>
+                    <p class="text-slate-400 text-lg leading-relaxed mb-8">
+                        O desafio era colossal: unificar setores que não se comunicavam. Projetamos uma infraestrutura
+                        de software ponta a ponta que amarrou os setores de Marketing, Vendas e Financeiro da escola em
+                        um único painel administrativo.
+                    </p>
+
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-4">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
+                            <span class="text-slate-300 font-medium">Captação de leads integrada diretamente no funil de
+                                vendas.</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
+                            <span class="text-slate-300 font-medium">Dashboards financeiros com métricas e projeções
+                                automáticas.</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative z-10 bg-slate-900/30 border-y border-slate-800/50 mt-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 animate-up">
+                <h3 class="text-3xl md:text-4xl font-display font-900 tracking-tighter text-white">Outras Frentes
+                    Digitais</h3>
+                <p class="text-slate-400 mt-4">Soluções focadas em captação de clientes e autoridade de marca.</p>
             </div>
 
-            <div class="flex overflow-x-auto pb-8 gap-6 snap-x hide-scrollbar animate-up delay-100">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div
-                    class="shrink-0 w-[85vw] sm:w-[400px] bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden snap-center group">
-                    <div class="h-48 bg-blue-900/50 flex items-center justify-center relative overflow-hidden">
+                    class="bg-slate-950 border border-slate-800 rounded-3xl p-8 card-hover transition-all animate-up delay-100 group">
+                    <div class="aspect-video bg-slate-900 rounded-xl mb-6 overflow-hidden relative">
                         <div
-                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/0f172a/3b82f6?text=APIT+Code')] opacity-50 bg-cover">
+                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/0f172a/f59e0b?text=Kids+LP')] bg-cover bg-center opacity-70 group-hover:scale-105 transition-transform duration-500">
                         </div>
-                        <i data-lucide="graduation-cap"
-                            class="w-12 h-12 text-blue-400 relative z-10 group-hover:scale-125 transition-transform"></i>
                     </div>
-                    <div class="p-6">
-                        <span class="text-[10px] font-black uppercase tracking-widest text-blue-500">Sistema Web
-                            Corporativo</span>
-                        <h3 class="text-xl font-display font-bold text-white mt-1 mb-2">Portal Acadêmico APIT</h3>
-                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-orange-500 mb-3 block">Landing
+                        Page B2C</span>
+                    <h4 class="text-2xl font-display font-bold text-white mb-3">Matrículas Kids</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Página de altíssima conversão projetada para campanhas de tráfego pago. Otimizada para carregar
+                        em milissegundos e maximizar a captação de pais interessados em novas matrículas.
+                    </p>
                 </div>
+
                 <div
-                    class="shrink-0 w-[85vw] sm:w-[400px] bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden snap-center group">
-                    <div class="h-48 bg-emerald-900/50 flex items-center justify-center relative overflow-hidden">
+                    class="bg-slate-950 border border-slate-800 rounded-3xl p-8 card-hover transition-all animate-up delay-200 group">
+                    <div class="aspect-video bg-slate-900 rounded-xl mb-6 overflow-hidden relative">
                         <div
-                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/0f172a/10b981?text=CRM+Code')] opacity-50 bg-cover">
+                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/0f172a/8b5cf6?text=Saude+Web')] bg-cover bg-center opacity-70 group-hover:scale-105 transition-transform duration-500">
                         </div>
-                        <i data-lucide="bar-chart-2"
-                            class="w-12 h-12 text-emerald-400 relative z-10 group-hover:scale-125 transition-transform"></i>
                     </div>
-                    <div class="p-6">
-                        <span class="text-[10px] font-black uppercase tracking-widest text-emerald-500">Gestão B2B e
-                            Vendas</span>
-                        <h3 class="text-xl font-display font-bold text-white mt-1 mb-2">Ecossistema Papa Mike</h3>
-                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-purple-500 mb-3 block">Site
+                        Institucional</span>
+                    <h4 class="text-2xl font-display font-bold text-white mb-3">Papa Mike Saúde</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Plataforma institucional dedicada ao setor de saúde da instituição. Foco em SEO e design
+                        corporativo para atrair novos profissionais e transmitir autoridade técnica na área médica.
+                    </p>
                 </div>
             </div>
         </div>
@@ -540,25 +426,25 @@
 
     <section class="py-32 relative z-10">
         <div class="absolute inset-0 pointer-events-none">
-            <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full"></div>
+            <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full"></div>
         </div>
         <div class="max-w-4xl mx-auto px-6 text-center">
             <div
                 class="dark-glass p-10 md:p-16 rounded-[3rem] border border-slate-700 animate-up relative z-10 flex flex-col items-center">
                 <div
-                    class="w-20 h-20 bg-blue-900/30 text-blue-500 rounded-full flex items-center justify-center mb-8 border border-blue-500/20 shadow-lg shadow-blue-500/20">
-                    <i data-lucide="rocket" class="w-10 h-10"></i>
+                    class="w-20 h-20 bg-emerald-900/30 text-emerald-500 rounded-full flex items-center justify-center mb-8 border border-emerald-500/20 shadow-lg shadow-emerald-500/20">
+                    <i data-lucide="check-circle" class="w-10 h-10"></i>
                 </div>
                 <h2 class="text-4xl md:text-5xl font-display font-900 tracking-tighter text-white leading-tight mb-6">
-                    Inicie a sua <span class="text-blue-500">Transformação Digital</span>
+                    Seja o nosso próximo <span class="text-emerald-500">Case de Sucesso.</span>
                 </h2>
                 <p class="text-slate-400 text-lg font-medium mb-10 max-w-lg leading-relaxed">
-                    Preencha nosso formulário dinâmico em menos de 1 minuto. Receba uma proposta técnica estrutural
-                    direto no seu e-mail corporativo.
+                    Você viu o que construímos para eles. Agora imagine o que essa mesma arquitetura de software pode
+                    fazer pelos números da sua empresa.
                 </p>
                 <button onclick="openWizard()"
                     class="w-full sm:w-auto bg-blue-600 text-white px-12 py-5 rounded-full font-black uppercase tracking-widest text-sm hover:bg-white hover:text-slate-900 transition-all shadow-2xl shadow-blue-600/30 active:scale-95 flex items-center justify-center gap-3 group">
-                    Abrir Formulário Inteligente <i data-lucide="arrow-right"
+                    Iniciar Diagnóstico Gratuito <i data-lucide="arrow-right"
                         class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                 </button>
             </div>
@@ -570,7 +456,7 @@
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="w-full flex justify-center mb-16 border-b border-slate-800/50 pb-16">
                 <img src="https://ik.imagekit.io/38cojzdyt/PASM/PASM%20COMPLETA.png" alt="PASM Projetos Avançados"
-                    class="w-full max-w-3xl duration-700 pointer-events-none select-none">
+                    class="w-full max-w-3xl opacity-30 hover:opacity-80 transition-opacity duration-700 pointer-events-none select-none">
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 <div>
@@ -607,9 +493,9 @@
                 <div>
                     <h4 class="text-white font-display font-bold mb-6 text-lg">Empresa</h4>
                     <ul class="space-y-4">
-                        <li><a href="projetos.html"
-                                class="text-slate-400 hover:text-blue-500 text-sm transition-colors">Projetos
-                                Executados</a></li>
+                        <li><a href="index.html#core"
+                                class="text-slate-400 hover:text-blue-500 text-sm transition-colors">O Manifesto
+                                PASM</a></li>
                         <li><a href="sobre.html"
                                 class="text-slate-400 hover:text-blue-500 text-sm transition-colors">Metodologia e
                                 Preços</a></li>
@@ -790,19 +676,6 @@
     <script>
         lucide.createIcons();
 
-        /* MANIFESTO PASM TAB LOGIC */
-        function changeTab(letter) {
-            // Atualiza botões
-            document.querySelectorAll('.pasm-tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('tab-' + letter).classList.add('active');
-
-            // Atualiza conteúdo
-            document.querySelectorAll('.pasm-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById('content-' + letter).classList.add('active');
-        }
-
         /* MENU MOBILE */
         const mobileMenu = document.getElementById('mobile-menu');
         const iconMenu = document.getElementById('icon-menu');
@@ -844,12 +717,10 @@
         function openWizard() {
             const modal = document.getElementById('leadModal'); modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('active'), 10);
-
             document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
             document.getElementById('projDesc').value = ''; document.getElementById('projObs').value = '';
             document.getElementById('leadName').value = ''; document.getElementById('leadEmail').value = '';
             document.getElementById('leadPhone').value = ''; document.getElementById('leadTime').value = '';
-
             currentStep = 1; updateUI();
         }
 
@@ -872,7 +743,6 @@
         function validateStep4() {
             leadData.nome = document.getElementById('leadName').value.trim(); leadData.email = document.getElementById('leadEmail').value.trim();
             leadData.telefone = document.getElementById('leadPhone').value.trim(); leadData.horario = document.getElementById('leadTime').value;
-
             if (!leadData.nome || !leadData.email || !leadData.telefone || !leadData.horario) {
                 Swal.fire({ background: '#0f172a', color: '#fff', icon: 'error', title: 'Ops!', text: 'Preencha todos os dados de contato para prosseguir.' }); return;
             }
@@ -895,8 +765,7 @@
         }
 
         async function submitWizard() {
-            const btn = document.getElementById('submit-wizard-btn');
-            const originalText = btn.innerHTML;
+            const btn = document.getElementById('submit-wizard-btn'); const originalText = btn.innerHTML;
             btn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Processando...`;
             lucide.createIcons(); btn.disabled = true;
 
