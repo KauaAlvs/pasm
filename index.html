@@ -37,6 +37,7 @@
         body {
             background-color: #020617;
             color: #f8fafc;
+            overflow-x: hidden;
         }
 
         .dark-glass {
@@ -47,6 +48,30 @@
 
         .hero-glow {
             filter: drop-shadow(0 0 40px rgba(37, 99, 235, 0.4));
+        }
+
+        /* Ocultar Barra de Rolagem Horizontal (Hide Scrollbar) */
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Menu Mobile Overlay */
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
         }
 
         /* Animações e Hovers */
@@ -123,7 +148,6 @@
             transform: scale(1);
         }
 
-        /* Wizard Steps & Dots */
         .progress-dot {
             width: 10px;
             height: 10px;
@@ -146,7 +170,6 @@
             display: block;
         }
 
-        /* Option Cards no Wizard */
         .option-card {
             background: rgba(30, 41, 59, 0.5);
             border: 1px solid #334155;
@@ -168,7 +191,6 @@
             color: #60a5fa;
         }
 
-        /* FAQ Accordion */
         .faq-answer {
             max-height: 0;
             overflow: hidden;
@@ -189,13 +211,13 @@
 
     <div class="fixed inset-0 bg-grid-white bg-center pointer-events-none z-0"></div>
 
-    <nav class="fixed top-0 left-0 right-0 z-50 py-5 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="dark-glass rounded-full px-6 py-3 flex items-center justify-between shadow-2xl transition-all"
+    <nav class="fixed top-0 left-0 right-0 z-[60] py-4 md:py-5 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="dark-glass rounded-full px-5 md:px-6 py-3 flex items-center justify-between shadow-2xl transition-all"
                 id="nav-inner">
-                <a href="#inicio" class="flex items-center gap-3 group">
+                <a href="#inicio" class="flex items-center gap-3 group relative z-50">
                     <img src="https://ik.imagekit.io/38cojzdyt/PASM/PASM%20SOMENTE%20SIMBOLO.png" alt="PASM"
-                        class="w-8 h-8 transition-transform group-hover:scale-110">
+                        class="w-7 h-7 sm:w-8 sm:h-8 transition-transform group-hover:scale-110">
                     <span class="text-lg font-black tracking-tighter uppercase text-white hidden sm:block">PASM</span>
                 </a>
 
@@ -210,22 +232,52 @@
                         class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Contato</a>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <a href="https://github.com/KauaAlvs" target="_blank" class="text-slate-400 hover:text-white"><i
-                            data-lucide="github" class="w-5 h-5"></i></a>
-                    <a href="https://linkedin.com/in/kaua-alves-silva" target="_blank"
-                        class="text-slate-400 hover:text-blue-500 mr-2"><i data-lucide="linkedin"
+                <div class="flex items-center gap-4 relative z-50">
+                    <a href="https://github.com/KauaAlvs" target="_blank"
+                        class="text-slate-400 hover:text-white hidden sm:block"><i data-lucide="github"
                             class="w-5 h-5"></i></a>
+                    <a href="https://linkedin.com/in/kaua-alves-silva" target="_blank"
+                        class="text-slate-400 hover:text-blue-500 mr-2 hidden sm:block"><i data-lucide="linkedin"
+                            class="w-5 h-5"></i></a>
+
                     <button onclick="openWizard()"
-                        class="bg-blue-600 text-white px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all shadow-md shadow-blue-600/20 active:scale-95 hidden sm:block">
+                        class="bg-blue-600 text-white px-5 sm:px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all shadow-md shadow-blue-600/20 active:scale-95 hidden sm:block">
                         Iniciar Projeto
+                    </button>
+
+                    <button onclick="toggleMobileMenu()" class="text-white p-2 md:hidden" aria-label="Abrir Menu">
+                        <i id="menu-icon" data-lucide="menu" class="w-7 h-7"></i>
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <section id="inicio" class="relative pt-48 pb-24 lg:pt-64 lg:pb-40 overflow-hidden z-10 text-center">
+    <div id="mobile-menu"
+        class="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-2xl flex flex-col pt-32 px-6 md:hidden">
+        <div class="flex flex-col gap-8 text-center">
+            <a href="#solucoes" class="mobile-link text-3xl font-black text-slate-300 hover:text-white">Soluções</a>
+            <a href="#cases" class="mobile-link text-3xl font-black text-slate-300 hover:text-white">Projetos</a>
+            <a href="#metodologia"
+                class="mobile-link text-3xl font-black text-slate-300 hover:text-white">Metodologia</a>
+            <a href="#contato" class="mobile-link text-3xl font-black text-slate-300 hover:text-white">Contato</a>
+
+            <div class="mt-8 flex flex-col items-center gap-6">
+                <button onclick="openWizard(); closeMobileMenu()"
+                    class="w-full max-w-xs bg-blue-600 text-white px-8 py-5 rounded-full font-black uppercase tracking-widest text-xs shadow-lg shadow-blue-600/20">
+                    Iniciar Projeto
+                </button>
+                <div class="flex items-center gap-6">
+                    <a href="https://github.com/KauaAlvs" target="_blank" class="text-slate-400"><i data-lucide="github"
+                            class="w-8 h-8"></i></a>
+                    <a href="https://linkedin.com/in/kaua-alves-silva" target="_blank" class="text-slate-400"><i
+                            data-lucide="linkedin" class="w-8 h-8"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="inicio" class="relative pt-44 pb-20 lg:pt-64 lg:pb-40 overflow-hidden z-10 text-center">
         <div class="absolute inset-0 pointer-events-none">
             <div
                 class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 blur-[150px] rounded-full">
@@ -233,9 +285,9 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-6 relative z-10 animate-up">
-            <div class="mb-12">
+            <div class="mb-12 px-4">
                 <img src="https://ik.imagekit.io/38cojzdyt/PASM/PASM%20COMPLETA.png" alt="PASM Logo Completa"
-                    class="hero-glow max-w-sm md:max-w-lg mx-auto">
+                    class="hero-glow w-full max-w-xs md:max-w-lg mx-auto">
             </div>
 
             <h1 class="text-5xl md:text-7xl font-900 text-white tracking-tightest leading-tight mb-8">
@@ -270,7 +322,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="dark-glass p-10 rounded-[2.5rem] card-hover animate-up delay-100">
+                <div class="dark-glass p-8 md:p-10 rounded-[2.5rem] card-hover animate-up delay-100">
                     <div
                         class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-blue-400 mb-8 border border-slate-700">
                         <i data-lucide="database" class="w-7 h-7"></i>
@@ -283,7 +335,7 @@
                         24h por dia organizando clientes, processos e emitindo relatórios precisos.</p>
                 </div>
 
-                <div class="dark-glass p-10 rounded-[2.5rem] card-hover animate-up delay-200">
+                <div class="dark-glass p-8 md:p-10 rounded-[2.5rem] card-hover animate-up delay-200">
                     <div
                         class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 border border-slate-700">
                         <i data-lucide="layout" class="w-7 h-7"></i>
@@ -296,7 +348,7 @@
                         otimizadas para o Google (SEO) e desenhadas para transformar visitantes em clientes.</p>
                 </div>
 
-                <div class="dark-glass p-10 rounded-[2.5rem] card-hover animate-up delay-100">
+                <div class="dark-glass p-8 md:p-10 rounded-[2.5rem] card-hover animate-up delay-100">
                     <div
                         class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-purple-400 mb-8 border border-slate-700">
                         <i data-lucide="users" class="w-7 h-7"></i>
@@ -309,7 +361,7 @@
                         internos e conecte seus colaboradores em um ambiente privado e seguro.</p>
                 </div>
 
-                <div class="dark-glass p-10 rounded-[2.5rem] card-hover animate-up delay-200">
+                <div class="dark-glass p-8 md:p-10 rounded-[2.5rem] card-hover animate-up delay-200">
                     <div
                         class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-orange-400 mb-8 border border-slate-700">
                         <i data-lucide="shopping-bag" class="w-7 h-7"></i>
@@ -325,7 +377,7 @@
         </div>
     </section>
 
-    <section id="cases" class="py-24 relative z-10 bg-slate-900/50 border-y border-slate-800/50">
+    <section id="cases" class="py-24 relative z-10 bg-slate-900/50 border-y border-slate-800/50 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-16 animate-up">
                 <h2 class="text-4xl font-900 tracking-tightest text-white">Projetos Executados</h2>
@@ -334,7 +386,7 @@
 
             <div class="flex overflow-x-auto pb-8 gap-6 snap-x hide-scrollbar animate-up delay-100">
                 <div
-                    class="shrink-0 w-[300px] md:w-[400px] bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden snap-center group">
+                    class="shrink-0 w-[85vw] sm:w-[400px] bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden snap-center group">
                     <div class="h-48 bg-blue-900/50 flex items-center justify-center relative overflow-hidden">
                         <div
                             class="absolute inset-0 bg-[url('https://placehold.co/600x400/0f172a/3b82f6?text=APIT+Code')] opacity-50 bg-cover">
@@ -351,7 +403,7 @@
                 </div>
 
                 <div
-                    class="shrink-0 w-[300px] md:w-[400px] bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden snap-center group">
+                    class="shrink-0 w-[85vw] sm:w-[400px] bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden snap-center group">
                     <div class="h-48 bg-emerald-900/50 flex items-center justify-center relative overflow-hidden">
                         <div
                             class="absolute inset-0 bg-[url('https://placehold.co/600x400/0f172a/10b981?text=CRM+Code')] opacity-50 bg-cover">
@@ -369,7 +421,7 @@
                 </div>
 
                 <div
-                    class="shrink-0 w-[300px] md:w-[400px] bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden snap-center group">
+                    class="shrink-0 w-[85vw] sm:w-[400px] bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden snap-center group">
                     <div class="h-48 bg-orange-900/50 flex items-center justify-center relative overflow-hidden">
                         <div
                             class="absolute inset-0 bg-[url('https://placehold.co/600x400/0f172a/f59e0b?text=LP+Code')] opacity-50 bg-cover">
@@ -426,13 +478,13 @@
                 </div>
             </div>
 
-            <div class="bg-slate-900 border border-slate-800 rounded-[3rem] p-10 md:p-16 animate-up">
+            <div class="bg-slate-900 border border-slate-800 rounded-[3rem] p-8 md:p-16 animate-up">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-900 tracking-tightest text-white mb-4">Sem mensalidades
                         ocultas.</h2>
-                    <p class="text-slate-400 max-w-2xl mx-auto">
-                        O projeto é pago uma única vez (50% entrada / 50% entrega). <br>Após a entrega, o código é seu.
-                        Se precisar alterar algo no futuro, a taxa é pontual:
+                    <p class="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
+                        O projeto é pago uma única vez (50% entrada / 50% entrega). <br class="hidden md:block">Após a
+                        entrega, o código é seu. Se precisar alterar algo no futuro, a taxa é pontual:
                     </p>
                 </div>
 
@@ -451,7 +503,7 @@
                     <div
                         class="bg-slate-950 border border-blue-500/50 rounded-3xl p-8 text-center relative transform md:-translate-y-4 shadow-2xl shadow-blue-900/20">
                         <div
-                            class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
+                            class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full whitespace-nowrap">
                             Mais Comum</div>
                         <div
                             class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-lg mb-6 mt-4">
@@ -478,9 +530,9 @@
         </div>
     </section>
 
-    <section class="py-24 relative z-10">
+    <section id="faq" class="py-24 relative z-10">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div class="dark-glass p-10 rounded-[3rem] animate-up border-l-4 border-l-blue-500">
+            <div class="dark-glass p-8 md:p-10 rounded-[3rem] animate-up border-l-4 border-l-blue-500">
                 <div class="flex items-center gap-4 mb-6">
                     <div class="w-16 h-16 bg-slate-800 rounded-full overflow-hidden border-2 border-slate-700">
                         <div class="w-full h-full flex items-center justify-center text-blue-500 font-black text-2xl">K
@@ -492,7 +544,7 @@
                                 id="ageDisplay">21</span> anos</p>
                     </div>
                 </div>
-                <p class="text-slate-400 leading-relaxed mb-6">
+                <p class="text-slate-400 leading-relaxed mb-8 text-sm md:text-base">
                     Com 4 anos de experiência técnica e a fundação da PASM, eu não crio apenas telas. Desenvolvo a
                     lógica de banco de dados e a infraestrutura Cloud necessária para a sua empresa automatizar
                     operações pesadas sem dor de cabeça.
@@ -507,24 +559,26 @@
                     <div class="faq-item dark-glass rounded-2xl border border-slate-800 overflow-hidden cursor-pointer"
                         onclick="this.classList.toggle('active')">
                         <div class="p-6 flex items-center justify-between">
-                            <h4 class="font-bold text-white">Como funciona a Hospedagem e Domínio?</h4>
+                            <h4 class="font-bold text-white text-sm md:text-base">Como funciona a Hospedagem e Domínio?
+                            </h4>
                             <i data-lucide="chevron-down" class="faq-icon text-slate-500 transition-transform"></i>
                         </div>
                         <div class="faq-answer px-6 pb-6 text-slate-400 text-sm leading-relaxed">
-                            A configuração de hospedagem (Vercel/AWS) e a ligação do domínio (.com.br) já estão inclusos
-                            no orçamento do projeto. Deixo toda a infraestrutura rodando para você.
+                            A configuração de hospedagem de alta performance (Vercel/AWS) e a ligação do domínio oficial
+                            já estão inclusos no orçamento do projeto inicial. Deixo toda a infraestrutura rodando para
+                            você sem estresse.
                         </div>
                     </div>
 
                     <div class="faq-item dark-glass rounded-2xl border border-slate-800 overflow-hidden cursor-pointer"
                         onclick="this.classList.toggle('active')">
                         <div class="p-6 flex items-center justify-between">
-                            <h4 class="font-bold text-white">A PASM emite nota fiscal?</h4>
+                            <h4 class="font-bold text-white text-sm md:text-base">A PASM emite nota fiscal?</h4>
                             <i data-lucide="chevron-down" class="faq-icon text-slate-500 transition-transform"></i>
                         </div>
                         <div class="faq-answer px-6 pb-6 text-slate-400 text-sm leading-relaxed">
                             Sim. Sou uma empresa constituída e atuo 100% no modelo B2B corporativo. Todo serviço
-                            prestado possui contrato formal e emissão de Nota Fiscal.
+                            prestado possui elaboração de contrato formal de desenvolvimento e emissão de Nota Fiscal.
                         </div>
                     </div>
                 </div>
@@ -572,29 +626,29 @@
 
                 <div
                     class="dark-glass p-8 md:p-12 rounded-[3rem] border border-slate-700 animate-up delay-100 relative z-10">
-                    <form action="https://formspree.io/f/SEU_ID_AQUI" method="POST" class="space-y-5">
+                    <form id="contactForm" class="space-y-5">
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Nome
                                 Completo</label>
-                            <input type="text" name="nome" required placeholder="Ex: João Silva"
+                            <input type="text" id="apiNome" required placeholder="Ex: João Silva"
                                 class="w-full px-5 py-4 rounded-2xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600/50 bg-slate-900 text-white transition-all">
                         </div>
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">E-mail
                                 Corporativo</label>
-                            <input type="email" name="email" required placeholder="joao@suaempresa.com.br"
+                            <input type="email" id="apiEmail" required placeholder="joao@suaempresa.com.br"
                                 class="w-full px-5 py-4 rounded-2xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600/50 bg-slate-900 text-white transition-all">
                         </div>
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Descreva
                                 seu Desafio</label>
-                            <textarea name="mensagem" required rows="4"
+                            <textarea id="apiMensagem" required rows="4"
                                 placeholder="Como a PASM pode ajudar seu negócio hoje?"
                                 class="w-full px-5 py-4 rounded-2xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600/50 bg-slate-900 text-white transition-all resize-none"></textarea>
                         </div>
                         <button type="submit"
-                            class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white hover:text-slate-900 transition-all shadow-lg shadow-blue-600/20 active:scale-95 mt-2">
-                            Enviar Solicitação
+                            class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white hover:text-slate-900 transition-all shadow-lg shadow-blue-600/20 active:scale-95 mt-2 flex items-center justify-center gap-2">
+                            <span>Enviar Solicitação</span>
                         </button>
                     </form>
                 </div>
@@ -603,19 +657,99 @@
         </div>
     </section>
 
-    <footer class="py-12 bg-slate-950 border-t border-slate-900 text-center relative z-10">
-        <img src="https://ik.imagekit.io/38cojzdyt/PASM/PASM%20SOMENTE%20SIMBOLO.png" alt="PASM"
-            class="w-8 h-8 mx-auto mb-6 opacity-50 hover:opacity-100 transition-opacity">
-        <p class="text-[10px] font-bold text-slate-600 uppercase tracking-[0.3em]">
-            &copy; 2026 PASM Engenharia de Software.
-        </p>
+    <footer class="pt-24 pb-12 bg-slate-950 border-t border-slate-900 relative z-10 overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none bg-grid-white bg-center opacity-20"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+            <div
+                class="mb-16 border-b border-slate-800 pb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <img src="https://ik.imagekit.io/38cojzdyt/PASM/PASM%20COMPLETA.png" alt="PASM Projetos Avançados"
+                    class="h-10 sm:h-14 opacity-90 hover:opacity-100 transition-opacity w-max">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-500/20 w-max">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Disponível para novos projetos
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg">Sobre a PASM</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Engenharia de software corporativa. Soluções projetadas para empresas que exigem segurança,
+                        performance e design de alto padrão.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <a href="https://linkedin.com/in/kaua-alves-silva" target="_blank"
+                            class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white hover:border-blue-500 transition-all shadow-sm"><i
+                                data-lucide="linkedin" class="w-4 h-4"></i></a>
+                        <a href="https://github.com/KauaAlvs" target="_blank"
+                            class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:bg-white hover:text-slate-900 transition-all shadow-sm"><i
+                                data-lucide="github" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg">Especialidades</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#solucoes"
+                                class="text-slate-400 hover:text-blue-500 text-sm transition-colors">Sistemas B2B
+                                (ERP/CRM)</a></li>
+                        <li><a href="#solucoes"
+                                class="text-slate-400 hover:text-blue-500 text-sm transition-colors">Portais
+                                Institucionais</a></li>
+                        <li><a href="#solucoes"
+                                class="text-slate-400 hover:text-blue-500 text-sm transition-colors">E-commerce e
+                                Lojas</a></li>
+                        <li><a href="#solucoes"
+                                class="text-slate-400 hover:text-blue-500 text-sm transition-colors">Landing Pages de
+                                Conversão</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg">Empresa</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#cases"
+                                class="text-slate-400 hover:text-blue-500 text-sm transition-colors">Projetos
+                                Executados</a></li>
+                        <li><a href="#metodologia"
+                                class="text-slate-400 hover:text-blue-500 text-sm transition-colors">Metodologia e
+                                Preços</a></li>
+                        <li><a href="#faq" class="text-slate-400 hover:text-blue-500 text-sm transition-colors">Dúvidas
+                                Frequentes (FAQ)</a></li>
+                        <li><a href="#contato" class="text-slate-400 hover:text-blue-500 text-sm transition-colors">Fale
+                                Conosco</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg">Contato Rápido</h4>
+                    <ul class="space-y-5">
+                        <li class="flex items-center gap-3 text-slate-400 text-sm">
+                            <i data-lucide="mail" class="w-5 h-5 text-blue-500"></i> contato@pasm.com.br
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-400 text-sm">
+                            <i data-lucide="message-circle" class="w-5 h-5 text-emerald-500"></i> (11) 97696-5693
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-slate-500 text-xs font-medium text-center md:text-left">
+                    &copy; 2026 PASM Tecnologia. Desenvolvido por Kauã Alves.
+                </p>
+                <div class="flex items-center gap-6 text-slate-500 text-xs">
+                    <a href="#" class="hover:text-white transition-colors">Termos de Uso</a>
+                    <a href="#" class="hover:text-white transition-colors">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
-    <a href="https://wa.me/5511976965693" target="_blank"
-        class="fixed bottom-6 right-6 z-[60] bg-emerald-500 text-white p-4 rounded-full shadow-2xl shadow-emerald-500/30 hover:bg-emerald-400 hover:scale-110 transition-all duration-300 flex items-center justify-center group border border-emerald-400">
+    <a href="https://wa.me/5511976965693" target="_blank" aria-label="Falar no WhatsApp"
+        class="fixed bottom-6 right-6 z-[40] bg-emerald-500 text-white p-4 rounded-full shadow-2xl shadow-emerald-500/30 hover:bg-emerald-400 hover:scale-110 transition-all duration-300 flex items-center justify-center group border border-emerald-400">
         <i data-lucide="message-circle" class="w-7 h-7"></i>
         <span
-            class="absolute right-16 bg-slate-900 text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-slate-700 hidden sm:block shadow-xl">
+            class="absolute right-20 bg-slate-900 text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-slate-700 hidden sm:block shadow-xl">
             Falar com a PASM
         </span>
         <span
@@ -711,7 +845,6 @@
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-8">
                     <div class="text-xs text-slate-500 uppercase tracking-widest mb-1">Módulo Solicitado:</div>
                     <div class="text-white font-bold mb-3" id="summaryType">...</div>
-
                     <div class="text-xs text-slate-500 uppercase tracking-widest mb-1">Executivo:</div>
                     <div class="text-white font-bold" id="summaryName">...</div>
                 </div>
@@ -725,102 +858,124 @@
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
         lucide.createIcons();
-
-        // Idade automática (Kauã 2004)
         document.getElementById('ageDisplay').innerText = new Date().getFullYear() - 2004;
 
-        // Navbar Scroll Effect
+        /* MENU MOBILE */
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            if (mobileMenu.classList.contains('active')) {
+                menuIcon.setAttribute('data-lucide', 'x'); document.body.style.overflow = 'hidden';
+            } else {
+                menuIcon.setAttribute('data-lucide', 'menu'); document.body.style.overflow = '';
+            }
+            lucide.createIcons();
+        }
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active'); menuIcon.setAttribute('data-lucide', 'menu');
+            document.body.style.overflow = ''; lucide.createIcons();
+        }
+        document.querySelectorAll('.mobile-link').forEach(link => { link.addEventListener('click', closeMobileMenu); });
+
+        /* NAVBAR SCROLL */
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             const inner = document.getElementById('nav-inner');
             if (window.scrollY > 30) {
-                nav.classList.replace('py-5', 'py-3');
+                nav.classList.replace('py-4', 'py-2'); nav.classList.replace('md:py-5', 'md:py-3');
                 inner.classList.add('shadow-blue-900/10');
             } else {
-                nav.classList.replace('py-3', 'py-5');
+                nav.classList.replace('py-2', 'py-4'); nav.classList.replace('md:py-3', 'md:py-5');
                 inner.classList.remove('shadow-blue-900/10');
             }
         });
 
-        /* ================= WIZARD LOGIC ================= */
-        let currentStep = 1;
-        let selectedOption = '';
+        /* DISPARO DO FORMULÁRIO SEGURO VIA API VERCEL */
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
 
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+
+            const nome = document.getElementById('apiNome').value;
+            const email = document.getElementById('apiEmail').value;
+            const mensagem = document.getElementById('apiMensagem').value;
+
+            // Loading state
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Enviando...`;
+            lucide.createIcons();
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/contato', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, email, mensagem })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    Swal.fire({ background: '#0f172a', color: '#fff', icon: 'success', title: 'Sucesso!', text: 'Sua solicitação foi enviada. Entraremos em contato em breve.' });
+                    this.reset();
+                } else {
+                    Swal.fire({ background: '#0f172a', color: '#fff', icon: 'error', title: 'Ops!', text: data.message || 'Erro ao enviar a mensagem.' });
+                }
+            } catch (error) {
+                Swal.fire({ background: '#0f172a', color: '#fff', icon: 'error', title: 'Erro de Conexão', text: 'Não foi possível conectar com o servidor.' });
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        /* WIZARD LOGIC (Inalterado) */
+        let currentStep = 1; let selectedOption = '';
         function openWizard() {
-            const modal = document.getElementById('leadModal');
-            modal.style.display = 'flex';
+            const modal = document.getElementById('leadModal'); modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('active'), 10);
-
-            // Reset
-            document.getElementById('otherInputContainer').classList.add('hidden');
-            document.getElementById('otherInput').value = '';
-            document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
-            document.getElementById('inputName').value = '';
-
-            currentStep = 1;
-            updateUI();
+            document.getElementById('otherInputContainer').classList.add('hidden'); document.getElementById('otherInput').value = '';
+            document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected')); document.getElementById('inputName').value = '';
+            currentStep = 1; updateUI();
         }
-
         function closeModal() {
-            const modal = document.getElementById('leadModal');
-            modal.classList.remove('active');
+            const modal = document.getElementById('leadModal'); modal.classList.remove('active');
             setTimeout(() => modal.style.display = 'none', 300);
         }
-
         function selectOption(opt) {
-            document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
-            event.currentTarget.classList.add('selected');
-
+            document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected')); event.currentTarget.classList.add('selected');
             if (opt.includes('Outro')) {
-                document.getElementById('otherInputContainer').classList.remove('hidden');
-                document.getElementById('otherInput').focus();
+                document.getElementById('otherInputContainer').classList.remove('hidden'); document.getElementById('otherInput').focus();
             } else {
-                document.getElementById('otherInputContainer').classList.add('hidden');
-                selectedOption = opt;
-                setTimeout(nextStep, 300);
+                document.getElementById('otherInputContainer').classList.add('hidden'); selectedOption = opt; setTimeout(nextStep, 300);
             }
         }
-
         function confirmOther() {
             const val = document.getElementById('otherInput').value;
-            if (!val) {
-                Swal.fire({ background: '#0f172a', color: '#fff', icon: 'warning', title: 'Atenção', text: 'Descreva sua necessidade.' });
-                return;
-            }
-            selectedOption = val;
-            nextStep();
+            if (!val) { Swal.fire({ background: '#0f172a', color: '#fff', icon: 'warning', title: 'Atenção', text: 'Descreva sua necessidade.' }); return; }
+            selectedOption = val; nextStep();
         }
-
         function validateAndNext() {
             const name = document.getElementById('inputName').value;
-            if (!name) {
-                Swal.fire({ background: '#0f172a', color: '#fff', icon: 'error', title: 'Atenção', text: 'Preencha o nome de identificação.' });
-                return;
-            }
-            document.getElementById('summaryType').innerText = selectedOption;
-            document.getElementById('summaryName').innerText = name;
-            nextStep();
+            if (!name) { Swal.fire({ background: '#0f172a', color: '#fff', icon: 'error', title: 'Atenção', text: 'Preencha o nome de identificação.' }); return; }
+            document.getElementById('summaryType').innerText = selectedOption; document.getElementById('summaryName').innerText = name; nextStep();
         }
-
         function nextStep() { currentStep++; updateUI(); }
         function prevStep() { currentStep--; updateUI(); }
-
         function updateUI() {
             for (let i = 1; i <= 4; i++) {
                 document.getElementById('step' + i).classList.toggle('active', i === currentStep);
                 document.getElementById('dot' + i).classList.toggle('active', i <= currentStep);
             }
         }
-
         function finishOrder() {
             const name = document.getElementById('inputName').value;
-            // Número oficial 
             window.open(`https://wa.me/5511976965693?text=Olá PASM! Aqui é *${name}*. Solicito uma consultoria técnica para um projeto de: *${selectedOption}*.`, '_blank');
             closeModal();
         }
