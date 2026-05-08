@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PASM | Projetos Avançados de Sistemas Modulares</title>
+    <meta name="description"
+        content="Especialista em criação de sites, Lojas Virtuais e sistemas de gestão (CRM/ERP). Soluções de alto padrão para empresas.">
+
+    <link rel="icon" type="image/x-icon" href="https://ik.imagekit.io/38cojzdyt/PASM/favicon.ico">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    letterSpacing: { tightest: '-.075em' },
+                    backgroundImage: {
+                        'grid-white': "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiPjxwYXRoIGQ9Ik0wIC41SDMxLjU1VjMyIi8+PC9zdmc+')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        /* Estilos Core Padrão Ouro */
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+        }
+
+        .dark-glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+        }
+
+        .hero-glow {
+            filter: drop-shadow(0 0 40px rgba(37, 99, 235, 0.4));
+        }
+
+        /* Animações e Hovers */
+        .card-hover:hover {
+            transform: translateY(-5px);
+            border-color: rgba(37, 99, 235, 0.5);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-up {
+            animation: fadeInUp 0.7s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        /* Wizard Modal VIP */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 6, 23, 0.9);
+            backdrop-filter: blur(15px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+        }
+
+        .wizard-box {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 2rem;
+            width: 90%;
+            max-width: 500px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .wizard-box {
+            transform: scale(1);
+        }
+
+        /* Wizard Steps & Dots */
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #334155;
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background: #3b82f6;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+
+        .step-content-box {
+            display: none;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .step-content-box.active {
+            display: block;
+        }
+
+        /* Option Cards no Wizard */
+        .option-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid #334155;
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-card:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+        }
+
+        .option-card.selected {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+            color: #60a5fa;
+        }
+
+        /* FAQ Accordion */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-blue-900 selection:text-blue-100 font-sans">
+
+    <div class="fixed inset-0 bg-grid-white bg-center pointer-events-none z-0"></div>
+
+    <nav class="fixed top-0 left-0 right-0 z-50 py-5 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="dark-glass rounded-full px-6 py-3 flex items-center justify-between shadow-2xl transition-all"
+                id="nav-inner">
+                <a href="#inicio" class="flex items-center gap-3 group">
+                    <img src="https://ik.imagekit.io/38cojzdyt/PASM/PASM%20SOMENTE%20SIMBOLO.png" alt="PASM"
+                        class="w-8 h-8 transition-transform group-hover:scale-110">
+                    <span class="text-lg font-black tracking-tighter uppercase text-white hidden sm:block">PASM</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#solucoes"
+                        class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Soluções</a>
+                    <a href="#cases"
+                        class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Projetos</a>
+                    <a href="#metodologia"
+                        class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Metodologia</a>
+                    <a href="#contato"
+                        class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Contato</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="https://github.com/KauaAlvs" target="_blank" class="text-slate-400 hover:text-white"><i
+                            data-lucide="github" class="w-5 h-5"></i></a>
+                    <a href="https://linkedin.com/in/kaua-alves-silva" target="_blank"
+                        class="text-slate-400 hover:text-blue-500 mr-2"><i data-lucide="linkedin"
+                            class="w-5 h-5"></i></a>
+                    <button onclick="openWizard()"
+                        class="bg-blue-600 text-white px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all shadow-md shadow-blue-600/20 active:scale-95 hidden sm:block">
+                        Iniciar Projeto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="inicio" class="relative pt-48 pb-24 lg:pt-64 lg:pb-40 overflow-hidden z-10 text-center">
+        <div class="absolute inset-0 pointer-events-none">
+            <div
+                class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 blur-[150px] rounded-full">
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 animate-up">
+            <div class="mb-12">
+                <img src="https://ik.imagekit.io/38cojzdyt/PASM/PASM%20COMPLETA.png" alt="PASM Logo Completa"
+                    class="hero-glow max-w-sm md:max-w-lg mx-auto">
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-900 text-white tracking-tightest leading-tight mb-8">
+                Tecnologia que <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Impulsiona
+                    Negócios.</span>
+            </h1>
+
+            <p class="text-xl text-slate-400 font-medium max-w-2xl mx-auto mb-12">
+                Do site de alta conversão ao sistema de gestão B2B. Eu construo a engenharia de software exata para
+                escalar sua operação.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="openWizard()"
+                    class="w-full sm:w-auto bg-blue-600 text-white px-10 py-4 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white hover:text-slate-950 transition-all shadow-2xl shadow-blue-500/25 flex items-center justify-center gap-2 group">
+                    <i data-lucide="zap" class="w-4 h-4"></i> Diagnóstico Gratuito
+                </button>
+                <a href="#cases"
+                    class="w-full sm:w-auto text-slate-300 border border-slate-700 px-10 py-4 rounded-full font-black uppercase tracking-widest text-xs hover:bg-slate-800 hover:text-white transition-all">
+                    Ver Cases de Sucesso
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="solucoes" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 animate-up">
+                <h2 class="text-[11px] font-black uppercase tracking-[0.4em] text-blue-400 mb-4">Especialidades</h2>
+                <h3 class="text-4xl md:text-5xl font-900 tracking-tightest text-white">Soluções Sob Medida</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="dark-glass p-10 rounded-[2.5rem] card-hover animate-up delay-100">
+                    <div
+                        class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-blue-400 mb-8 border border-slate-700">
+                        <i data-lucide="database" class="w-7 h-7"></i>
+                    </div>
+                    <span
+                        class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-blue-500/20 mb-4">O
+                        "Novo Funcionário"</span>
+                    <h4 class="text-2xl font-black tracking-tight text-white mb-4">Sistemas de Gestão (ERP/CRM)</h4>
+                    <p class="text-slate-400 leading-relaxed mb-6">Fim das planilhas bagunçadas. Um sistema que trabalha
+                        24h por dia organizando clientes, processos e emitindo relatórios precisos.</p>
+                </div>
+
+                <div class="dark-glass p-10 rounded-[2.5rem] card-hover animate-up delay-200">
+                    <div
+                        class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 border border-slate-700">
+                        <i data-lucide="layout" class="w-7 h-7"></i>
+                    </div>
+                    <span
+                        class="inline-block px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-emerald-500/20 mb-4">Sua
+                        Vitrine Digital</span>
+                    <h4 class="text-2xl font-black tracking-tight text-white mb-4">Sites e Landing Pages</h4>
+                    <p class="text-slate-400 leading-relaxed mb-6">Foco total em conversão. Páginas ultra-rápidas,
+                        otimizadas para o Google (SEO) e desenhadas para transformar visitantes em clientes.</p>
+                </div>
+
+                <div class="dark-glass p-10 rounded-[2.5rem] card-hover animate-up delay-100">
+                    <div
+                        class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-purple-400 mb-8 border border-slate-700">
+                        <i data-lucide="users" class="w-7 h-7"></i>
+                    </div>
+                    <span
+                        class="inline-block px-3 py-1 bg-purple-500/10 text-purple-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-purple-500/20 mb-4">Conexão
+                        Interna</span>
+                    <h4 class="text-2xl font-black tracking-tight text-white mb-4">Intranet Corporativa</h4>
+                    <p class="text-slate-400 leading-relaxed mb-6">Centralize a comunicação do RH, abra chamados
+                        internos e conecte seus colaboradores em um ambiente privado e seguro.</p>
+                </div>
+
+                <div class="dark-glass p-10 rounded-[2.5rem] card-hover animate-up delay-200">
+                    <div
+                        class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-orange-400 mb-8 border border-slate-700">
+                        <i data-lucide="shopping-bag" class="w-7 h-7"></i>
+                    </div>
+                    <span
+                        class="inline-block px-3 py-1 bg-orange-500/10 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-orange-500/20 mb-4">Sua
+                        Loja 24h</span>
+                    <h4 class="text-2xl font-black tracking-tight text-white mb-4">E-commerce de Alta Performance</h4>
+                    <p class="text-slate-400 leading-relaxed mb-6">Integração com principais meios de pagamento e um
+                        painel administrativo fácil para você mesmo gerir seu estoque sem dor de cabeça.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cases" class="py-24 relative z-10 bg-slate-900/50 border-y border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 animate-up">
+                <h2 class="text-4xl font-900 tracking-tightest text-white">Projetos Executados</h2>
+                <p class="text-slate-400 mt-2">Arraste para o lado para ver o histórico de entregas.</p>
+            </div>
+
+            <div class="flex overflow-x-auto pb-8 gap-6 snap-x hide-scrollbar animate-up delay-100">
+                <div
+                    class="shrink-0 w-[300px] md:w-[400px] bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden snap-center group">
+                    <div class="h-48 bg-blue-900/50 flex items-center justify-center relative overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/0f172a/3b82f6?text=APIT+Code')] opacity-50 bg-cover">
+                        </div>
+                        <i data-lucide="graduation-cap"
+                            class="w-12 h-12 text-blue-400 relative z-10 group-hover:scale-125 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-[10px] font-black uppercase tracking-widest text-blue-500">Sistema Web</span>
+                        <h3 class="text-xl font-bold text-white mt-1 mb-2">Portal APIT</h3>
+                        <p class="text-sm text-slate-400">Portal educacional e recrutamento focado na gestão de jovens
+                            aprendizes e parceiros corporativos.</p>
+                    </div>
+                </div>
+
+                <div
+                    class="shrink-0 w-[300px] md:w-[400px] bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden snap-center group">
+                    <div class="h-48 bg-emerald-900/50 flex items-center justify-center relative overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/0f172a/10b981?text=CRM+Code')] opacity-50 bg-cover">
+                        </div>
+                        <i data-lucide="bar-chart-2"
+                            class="w-12 h-12 text-emerald-400 relative z-10 group-hover:scale-125 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-[10px] font-black uppercase tracking-widest text-emerald-500">Gestão
+                            B2B</span>
+                        <h3 class="text-xl font-bold text-white mt-1 mb-2">Ecossistema Papa Mike</h3>
+                        <p class="text-sm text-slate-400">Sistema unificado operando Marketing, Vendas e Gestão
+                            Financeira em um único painel de alta performance.</p>
+                    </div>
+                </div>
+
+                <div
+                    class="shrink-0 w-[300px] md:w-[400px] bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden snap-center group">
+                    <div class="h-48 bg-orange-900/50 flex items-center justify-center relative overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/0f172a/f59e0b?text=LP+Code')] opacity-50 bg-cover">
+                        </div>
+                        <i data-lucide="mouse-pointer-click"
+                            class="w-12 h-12 text-orange-400 relative z-10 group-hover:scale-125 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-[10px] font-black uppercase tracking-widest text-orange-500">Conversão</span>
+                        <h3 class="text-xl font-bold text-white mt-1 mb-2">Matrículas Kids</h3>
+                        <p class="text-sm text-slate-400">Landing Page estratégica desenhada especificamente para
+                            aumentar a captação de leads e matrículas escolares.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="metodologia" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="mb-24">
+                <div class="text-center mb-16 animate-up">
+                    <h2 class="text-4xl font-900 tracking-tightest text-white">Como eu trabalho</h2>
+                    <p class="text-slate-400 mt-4 max-w-xl mx-auto">Processo limpo, entrega no prazo e transparência
+                        financeira do início ao fim.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="dark-glass p-8 rounded-[2rem] text-center animate-up delay-100">
+                        <div
+                            class="w-12 h-12 rounded-full bg-blue-600 text-white font-black flex items-center justify-center mx-auto mb-6 text-xl">
+                            1</div>
+                        <h4 class="text-xl font-bold text-white mb-2">Entendimento</h4>
+                        <p class="text-sm text-slate-400">Reunião técnica para desenhar a arquitetura que resolve a dor
+                            real do seu negócio.</p>
+                    </div>
+                    <div class="dark-glass p-8 rounded-[2rem] text-center animate-up delay-200">
+                        <div
+                            class="w-12 h-12 rounded-full bg-blue-600 text-white font-black flex items-center justify-center mx-auto mb-6 text-xl">
+                            2</div>
+                        <h4 class="text-xl font-bold text-white mb-2">Produção</h4>
+                        <p class="text-sm text-slate-400">Desenvolvimento focado em segurança de dados, UI/UX Premium e
+                            código limpo.</p>
+                    </div>
+                    <div class="dark-glass p-8 rounded-[2rem] text-center animate-up delay-300">
+                        <div
+                            class="w-12 h-12 rounded-full bg-blue-600 text-white font-black flex items-center justify-center mx-auto mb-6 text-xl">
+                            3</div>
+                        <h4 class="text-xl font-bold text-white mb-2">Entrega</h4>
+                        <p class="text-sm text-slate-400">Homologação final e deploy. O projeto vai ao ar 100% testado e
+                            configurado.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-[3rem] p-10 md:p-16 animate-up">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-900 tracking-tightest text-white mb-4">Sem mensalidades
+                        ocultas.</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">
+                        O projeto é pago uma única vez (50% entrada / 50% entrega). <br>Após a entrega, o código é seu.
+                        Se precisar alterar algo no futuro, a taxa é pontual:
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div
+                        class="bg-slate-950 border border-slate-800 rounded-3xl p-8 text-center hover:border-blue-500/50 transition-colors">
+                        <div
+                            class="inline-block px-3 py-1 bg-slate-800 text-slate-300 text-[10px] font-black uppercase tracking-widest rounded-lg mb-6">
+                            Nível 1</div>
+                        <div class="text-5xl font-black text-white mb-2">10%</div>
+                        <div class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-4">do contrato</div>
+                        <h4 class="text-lg font-bold text-white mb-2">Alteração Simples</h4>
+                        <p class="text-sm text-slate-500">Ajustes de texto, troca de imagens, cores ou alinhamentos de
+                            layout.</p>
+                    </div>
+                    <div
+                        class="bg-slate-950 border border-blue-500/50 rounded-3xl p-8 text-center relative transform md:-translate-y-4 shadow-2xl shadow-blue-900/20">
+                        <div
+                            class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
+                            Mais Comum</div>
+                        <div
+                            class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-lg mb-6 mt-4">
+                            Nível 2</div>
+                        <div class="text-5xl font-black text-white mb-2">15%</div>
+                        <div class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-4">do contrato</div>
+                        <h4 class="text-lg font-bold text-white mb-2">Alteração Mediana</h4>
+                        <p class="text-sm text-slate-500">Criação de novas páginas, seções de conteúdo robustas ou
+                            ajustes estruturais.</p>
+                    </div>
+                    <div
+                        class="bg-slate-950 border border-slate-800 rounded-3xl p-8 text-center hover:border-blue-500/50 transition-colors">
+                        <div
+                            class="inline-block px-3 py-1 bg-slate-800 text-slate-300 text-[10px] font-black uppercase tracking-widest rounded-lg mb-6">
+                            Nível 3</div>
+                        <div class="text-5xl font-black text-white mb-2">20%</div>
+                        <div class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-4">do contrato</div>
+                        <h4 class="text-lg font-bold text-white mb-2">Alteração Complexa</h4>
+                        <p class="text-sm text-slate-500">Lógicas novas, integração com APIs externas ou alterações
+                            estruturais de BD.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div class="dark-glass p-10 rounded-[3rem] animate-up border-l-4 border-l-blue-500">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-16 h-16 bg-slate-800 rounded-full overflow-hidden border-2 border-slate-700">
+                        <div class="w-full h-full flex items-center justify-center text-blue-500 font-black text-2xl">K
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-white">Kauã Alves Silva</h3>
+                        <p class="text-sm text-blue-400 font-bold">Desenvolvedor Full-Stack / <span
+                                id="ageDisplay">21</span> anos</p>
+                    </div>
+                </div>
+                <p class="text-slate-400 leading-relaxed mb-6">
+                    Com 4 anos de experiência técnica e a fundação da PASM, eu não crio apenas telas. Desenvolvo a
+                    lógica de banco de dados e a infraestrutura Cloud necessária para a sua empresa automatizar
+                    operações pesadas sem dor de cabeça.
+                </p>
+                <img src="https://ik.imagekit.io/38cojzdyt/PASM/SOMENTE%20O%20NOME%20E%20SUBNOME.png"
+                    class="w-48 opacity-50" alt="PASM Assinatura">
+            </div>
+
+            <div class="animate-up delay-100">
+                <h3 class="text-3xl font-900 text-white mb-8">Perguntas Frequentes</h3>
+                <div class="space-y-4">
+                    <div class="faq-item dark-glass rounded-2xl border border-slate-800 overflow-hidden cursor-pointer"
+                        onclick="this.classList.toggle('active')">
+                        <div class="p-6 flex items-center justify-between">
+                            <h4 class="font-bold text-white">Como funciona a Hospedagem e Domínio?</h4>
+                            <i data-lucide="chevron-down" class="faq-icon text-slate-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer px-6 pb-6 text-slate-400 text-sm leading-relaxed">
+                            A configuração de hospedagem (Vercel/AWS) e a ligação do domínio (.com.br) já estão inclusos
+                            no orçamento do projeto. Deixo toda a infraestrutura rodando para você.
+                        </div>
+                    </div>
+
+                    <div class="faq-item dark-glass rounded-2xl border border-slate-800 overflow-hidden cursor-pointer"
+                        onclick="this.classList.toggle('active')">
+                        <div class="p-6 flex items-center justify-between">
+                            <h4 class="font-bold text-white">A PASM emite nota fiscal?</h4>
+                            <i data-lucide="chevron-down" class="faq-icon text-slate-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer px-6 pb-6 text-slate-400 text-sm leading-relaxed">
+                            Sim. Sou uma empresa constituída e atuo 100% no modelo B2B corporativo. Todo serviço
+                            prestado possui contrato formal e emissão de Nota Fiscal.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="py-24 relative z-10 bg-slate-900/50 border-t border-slate-800/50">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+                <div class="animate-up">
+                    <h2 class="text-4xl md:text-6xl font-900 tracking-tightest text-white leading-tight mb-8">
+                        Pronto para o <br><span class="text-blue-500">próximo nível?</span>
+                    </h2>
+                    <p class="text-slate-400 text-lg font-medium mb-10 max-w-md leading-relaxed">
+                        Preencha o formulário para receber uma proposta técnica detalhada, ou me chame diretamente nos
+                        canais abaixo.
+                    </p>
+
+                    <div class="space-y-6">
+                        <a href="mailto:contato@pasm.com.br" class="flex items-center gap-5 group w-max">
+                            <div
+                                class="w-14 h-14 bg-slate-800 text-blue-400 rounded-2xl flex items-center justify-center border border-slate-700 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">
+                                <i data-lucide="mail" class="w-6 h-6"></i>
+                            </div>
+                            <span
+                                class="font-bold text-slate-300 group-hover:text-white transition-colors text-lg">contato@pasm.com.br</span>
+                        </a>
+                        <a href="https://wa.me/5511976965693" target="_blank"
+                            class="flex items-center gap-5 group w-max">
+                            <div
+                                class="w-14 h-14 bg-slate-800 text-emerald-400 rounded-2xl flex items-center justify-center border border-slate-700 group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
+                                <i data-lucide="message-circle" class="w-6 h-6"></i>
+                            </div>
+                            <span class="font-bold text-slate-300 group-hover:text-white transition-colors text-lg">(11)
+                                97696-5693</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="dark-glass p-8 md:p-12 rounded-[3rem] border border-slate-700 animate-up delay-100 relative z-10">
+                    <form action="https://formspree.io/f/SEU_ID_AQUI" method="POST" class="space-y-5">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Nome
+                                Completo</label>
+                            <input type="text" name="nome" required placeholder="Ex: João Silva"
+                                class="w-full px-5 py-4 rounded-2xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600/50 bg-slate-900 text-white transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">E-mail
+                                Corporativo</label>
+                            <input type="email" name="email" required placeholder="joao@suaempresa.com.br"
+                                class="w-full px-5 py-4 rounded-2xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600/50 bg-slate-900 text-white transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Descreva
+                                seu Desafio</label>
+                            <textarea name="mensagem" required rows="4"
+                                placeholder="Como a PASM pode ajudar seu negócio hoje?"
+                                class="w-full px-5 py-4 rounded-2xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600/50 bg-slate-900 text-white transition-all resize-none"></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white hover:text-slate-900 transition-all shadow-lg shadow-blue-600/20 active:scale-95 mt-2">
+                            Enviar Solicitação
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-slate-950 border-t border-slate-900 text-center relative z-10">
+        <img src="https://ik.imagekit.io/38cojzdyt/PASM/PASM%20SOMENTE%20SIMBOLO.png" alt="PASM"
+            class="w-8 h-8 mx-auto mb-6 opacity-50 hover:opacity-100 transition-opacity">
+        <p class="text-[10px] font-bold text-slate-600 uppercase tracking-[0.3em]">
+            &copy; 2026 PASM Engenharia de Software.
+        </p>
+    </footer>
+
+    <a href="https://wa.me/5511976965693" target="_blank"
+        class="fixed bottom-6 right-6 z-[60] bg-emerald-500 text-white p-4 rounded-full shadow-2xl shadow-emerald-500/30 hover:bg-emerald-400 hover:scale-110 transition-all duration-300 flex items-center justify-center group border border-emerald-400">
+        <i data-lucide="message-circle" class="w-7 h-7"></i>
+        <span
+            class="absolute right-16 bg-slate-900 text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-slate-700 hidden sm:block shadow-xl">
+            Falar com a PASM
+        </span>
+        <span
+            class="absolute inset-0 rounded-full border-2 border-emerald-400 animate-ping opacity-20 pointer-events-none"></span>
+    </a>
+
+    <div id="leadModal" class="modal-overlay">
+        <div class="wizard-box">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex gap-2">
+                    <div class="progress-dot active" id="dot1"></div>
+                    <div class="progress-dot" id="dot2"></div>
+                    <div class="progress-dot" id="dot3"></div>
+                    <div class="progress-dot" id="dot4"></div>
+                </div>
+                <button onclick="closeModal()" class="text-slate-500 hover:text-white transition-colors"><i
+                        data-lucide="x"></i></button>
+            </div>
+
+            <div id="step1" class="step-content-box active">
+                <div
+                    class="w-16 h-16 bg-blue-900/30 text-blue-500 rounded-2xl flex items-center justify-center mb-6 border border-blue-500/20">
+                    <i data-lucide="rocket" size="32"></i>
+                </div>
+                <h2 class="text-3xl font-900 text-white tracking-tight mb-2">Diagnóstico Técnico</h2>
+                <p class="text-slate-400 mb-8">Responda a 2 perguntas rápidas para que eu possa estruturar a base da sua
+                    proposta técnica.</p>
+                <button onclick="nextStep()"
+                    class="w-full bg-blue-600 text-white py-4 rounded-xl font-black uppercase tracking-widest text-xs hover:bg-blue-500 transition-all shadow-lg shadow-blue-500/20 active:scale-95">
+                    Começar
+                </button>
+            </div>
+
+            <div id="step2" class="step-content-box">
+                <h2 class="text-2xl font-bold text-white mb-2">Qual o foco do projeto?</h2>
+                <p class="text-sm text-slate-400 mb-6">Selecione o módulo principal que sua empresa precisa.</p>
+
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="option-card" onclick="selectOption('Landing Page / Site')"><i data-lucide="layout"
+                            class="mx-auto mb-2 w-6 h-6 text-slate-400"></i><span
+                            class="text-xs font-bold text-slate-300">Site/Landing Page</span></div>
+                    <div class="option-card" onclick="selectOption('Sistema ERP / CRM')"><i data-lucide="database"
+                            class="mx-auto mb-2 w-6 h-6 text-slate-400"></i><span
+                            class="text-xs font-bold text-slate-300">Sistema (ERP/CRM)</span></div>
+                    <div class="option-card" onclick="selectOption('E-commerce')"><i data-lucide="shopping-bag"
+                            class="mx-auto mb-2 w-6 h-6 text-slate-400"></i><span
+                            class="text-xs font-bold text-slate-300">Loja Virtual</span></div>
+                    <div class="option-card" onclick="selectOption('Intranet RH')"><i data-lucide="users"
+                            class="mx-auto mb-2 w-6 h-6 text-slate-400"></i><span
+                            class="text-xs font-bold text-slate-300">Intranet Corporativa</span></div>
+                    <div class="option-card col-span-2" onclick="selectOption('Outro / API')"><i data-lucide="code-2"
+                            class="mx-auto mb-2 w-6 h-6 text-slate-400"></i><span
+                            class="text-xs font-bold text-slate-300">Integração API / Outro</span></div>
+                </div>
+
+                <div id="otherInputContainer" class="hidden mt-4">
+                    <input type="text" id="otherInput"
+                        class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 mb-3"
+                        placeholder="Qual seria a necessidade?">
+                    <button onclick="confirmOther()"
+                        class="w-full bg-slate-800 text-white py-3 rounded-xl font-bold hover:bg-slate-700 text-sm">Confirmar
+                        Seleção</button>
+                </div>
+            </div>
+
+            <div id="step3" class="step-content-box">
+                <div
+                    class="w-16 h-16 bg-emerald-900/30 text-emerald-500 rounded-2xl flex items-center justify-center mb-6 border border-emerald-500/20">
+                    <i data-lucide="user" size="32"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-2">Identificação</h2>
+                <p class="text-sm text-slate-400 mb-6">Como posso me referir a você ou à sua empresa?</p>
+
+                <input type="text" id="inputName"
+                    class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 mb-4"
+                    placeholder="Seu Nome / Empresa">
+
+                <div class="flex gap-3">
+                    <button onclick="prevStep()"
+                        class="w-1/3 bg-slate-800 text-white py-3 rounded-xl font-bold hover:bg-slate-700 text-sm">Voltar</button>
+                    <button onclick="validateAndNext()"
+                        class="w-2/3 bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-500 text-sm">Avançar</button>
+                </div>
+            </div>
+
+            <div id="step4" class="step-content-box">
+                <div
+                    class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/30">
+                    <i data-lucide="check-circle" size="32"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-6">Diagnóstico gerado.</h2>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-8">
+                    <div class="text-xs text-slate-500 uppercase tracking-widest mb-1">Módulo Solicitado:</div>
+                    <div class="text-white font-bold mb-3" id="summaryType">...</div>
+
+                    <div class="text-xs text-slate-500 uppercase tracking-widest mb-1">Executivo:</div>
+                    <div class="text-white font-bold" id="summaryName">...</div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="prevStep()"
+                        class="w-1/3 border border-slate-700 text-slate-300 py-3 rounded-xl font-bold hover:bg-slate-800 text-sm">Corrigir</button>
+                    <button onclick="finishOrder()"
+                        class="w-2/3 bg-emerald-600 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-500 shadow-lg shadow-emerald-600/20 text-sm">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Enviar no WhatsApp
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Idade automática (Kauã 2004)
+        document.getElementById('ageDisplay').innerText = new Date().getFullYear() - 2004;
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            const inner = document.getElementById('nav-inner');
+            if (window.scrollY > 30) {
+                nav.classList.replace('py-5', 'py-3');
+                inner.classList.add('shadow-blue-900/10');
+            } else {
+                nav.classList.replace('py-3', 'py-5');
+                inner.classList.remove('shadow-blue-900/10');
+            }
+        });
+
+        /* ================= WIZARD LOGIC ================= */
+        let currentStep = 1;
+        let selectedOption = '';
+
+        function openWizard() {
+            const modal = document.getElementById('leadModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+
+            // Reset
+            document.getElementById('otherInputContainer').classList.add('hidden');
+            document.getElementById('otherInput').value = '';
+            document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
+            document.getElementById('inputName').value = '';
+
+            currentStep = 1;
+            updateUI();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('leadModal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        function selectOption(opt) {
+            document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+
+            if (opt.includes('Outro')) {
+                document.getElementById('otherInputContainer').classList.remove('hidden');
+                document.getElementById('otherInput').focus();
+            } else {
+                document.getElementById('otherInputContainer').classList.add('hidden');
+                selectedOption = opt;
+                setTimeout(nextStep, 300);
+            }
+        }
+
+        function confirmOther() {
+            const val = document.getElementById('otherInput').value;
+            if (!val) {
+                Swal.fire({ background: '#0f172a', color: '#fff', icon: 'warning', title: 'Atenção', text: 'Descreva sua necessidade.' });
+                return;
+            }
+            selectedOption = val;
+            nextStep();
+        }
+
+        function validateAndNext() {
+            const name = document.getElementById('inputName').value;
+            if (!name) {
+                Swal.fire({ background: '#0f172a', color: '#fff', icon: 'error', title: 'Atenção', text: 'Preencha o nome de identificação.' });
+                return;
+            }
+            document.getElementById('summaryType').innerText = selectedOption;
+            document.getElementById('summaryName').innerText = name;
+            nextStep();
+        }
+
+        function nextStep() { currentStep++; updateUI(); }
+        function prevStep() { currentStep--; updateUI(); }
+
+        function updateUI() {
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById('step' + i).classList.toggle('active', i === currentStep);
+                document.getElementById('dot' + i).classList.toggle('active', i <= currentStep);
+            }
+        }
+
+        function finishOrder() {
+            const name = document.getElementById('inputName').value;
+            // Número oficial 
+            window.open(`https://wa.me/5511976965693?text=Olá PASM! Aqui é *${name}*. Solicito uma consultoria técnica para um projeto de: *${selectedOption}*.`, '_blank');
+            closeModal();
+        }
+    </script>
+</body>
+
+</html>
